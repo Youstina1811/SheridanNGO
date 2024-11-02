@@ -1,5 +1,12 @@
 ﻿namespace SheridanNGO.Models
 {
+
+    public enum UserType
+    {   Donor,
+        NGO,
+        Admin
+    }
+
     public class User
     {
         private String Name { get; set; }
@@ -18,5 +25,7 @@
         }
 
         public User() { }
+
+        public ICollection<Donation> Donations { get; set; }
     }
 }
