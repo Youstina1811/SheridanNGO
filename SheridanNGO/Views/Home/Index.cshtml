@@ -1,14 +1,11 @@
-@page
-@{
-   // ViewData["Title"] = "Welcome To The NGO";
-}
+@{}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/css/site.css" /> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="~/css/styles.css" />
     <title>Welcome To The NGO</title>
     <style>
         body {
@@ -18,25 +15,22 @@
             background-color: #f0f0f0;
         }
         .header {
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between left and right */
+            align-items: center; /* Center items vertically */
             background-color: yellow;
-            text-align: center;
             padding: 20px;
         }
         .header h1 {
             margin: 0;
             font-size: 2em;
         }
-        .buttons {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .button {
+        .header .top-button {
             background-color: red;
             color: white;
             border: none;
             padding: 10px 20px;
-            margin: 0 10px;
+            margin: 0 5px; /* Adjust margin for spacing */
             cursor: pointer;
             font-size: 1em;
         }
@@ -58,13 +52,29 @@
             justify-content: center;
             color: #ccc;
         }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .buttons .button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px; /* Consistent margin for buttons */
+            cursor: pointer;
+            font-size: 1em;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Welcome To The NGO</h1>
-        <a href="/Account/Create" class="button">Create an Account</a>
-        <a href="/Account/Login" class="button">Sign in</a>
+        <div>
+            <a href="/Account/Create" class="top-button">Create an Account</a>
+            <a href="@Url.Action("SignIn", "Home")" class="top-button">Sign in</a>
+        </div>
     </div>
     <div class="about-section">
         <div class="image-placeholder">Image Placeholder</div>
