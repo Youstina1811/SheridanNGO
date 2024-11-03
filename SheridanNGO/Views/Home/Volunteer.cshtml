@@ -1,5 +1,5 @@
-@model dynamic
-@{}
+@{
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/styles.css" />
-    <title>Sign In Page</title>
+    <title>Volunteer Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
             margin: 0;
             padding-top: 50px; /* Add some padding to move down from the top */
         }
-        .signin-container {
+        .volunteer-container {
             background-color: white;
             padding: 20px;
             border-radius: 5px;
@@ -28,7 +28,7 @@
             max-width: 90%; /* Responsive max width */
             height: auto; /* Allow height to adjust based on content */
             overflow: auto; /* Add scroll if needed */
-            border: 2px solid black; /* Black border */
+            border: 2px solid black; /* Black border to match sign-up style */
         }
         .button {
             background-color: red;
@@ -39,36 +39,36 @@
             font-size: 1em;
             margin-top: 10px;
         }
-        .link {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: blue;
-        }
     </style>
 </head>
 <body>
-    <div class="signin-container"> <!-- This will have the black border -->
-        <h1>Sign In</h1>
-        <form method="post" action="/Account/Login">
+    <div class="volunteer-container"> <!-- Volunteer container with black border -->
+        <h1>Helping out someone is always a good thing to do as a human being!</h1>
+        <form method="post" action="/Volunteer/Submit"> <!-- Update action as needed -->
             <div>
-                <label>Username</label>
-                <input type="text" name="username" required />
+                <label>Your Name:</label>
+                <input type="text" name="name" required />
             </div>
             <div>
-                <label>Password</label>
-                <input type="password" name="password" required />
+                <label>Your Email:</label>
+                <input type="email" name="email" required />
             </div>
             <div>
-                <button type="submit" class="button">Submit</button>
+                <label>Phone Number:</label>
+                <input type="text" name="phoneNumber" required />
             </div>
             <div>
-                <a href="#" class="link">Forgot Your Password? Click here</a>
+                <label>What Days are you free? (Please note we operate 9-5 pm)</label>
+                <div>
+                    <input type="checkbox" name="days" value="Mondays" /> Mondays
+                    <input type="checkbox" name="days" value="Tuesdays" /> Tuesdays
+                    <input type="checkbox" name="days" value="Wednesdays" /> Wednesdays
+                    <input type="checkbox" name="days" value="Thursdays" /> Thursdays
+                    <input type="checkbox" name="days" value="Fridays" /> Fridays
+                </div>
             </div>
+            <button type="submit" class="button">Submit</button>
         </form>
-        <div>
-            <a href="/Account/Register" class="link">Click here to Sign Up</a>
-        </div>
     </div>
 </body>
 </html>

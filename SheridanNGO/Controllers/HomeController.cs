@@ -23,5 +23,20 @@ namespace SheridanNGO.Controllers
             return View(); // Return the SignUp view
         }
 
+        //Action for Volunteer
+            public IActionResult Volunteer()
+        {
+            return View(); // Return the Volunteer view
+        }
+
+            public IActionResult Contact()
+        {
+            return View(); // Return the Contact view
+        }
+            public IActionResult Newsletter()
+        {
+            return View(); // This will return the Newsletter.cshtml view
+        }
+
 }
 }

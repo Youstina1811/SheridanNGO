@@ -1,5 +1,5 @@
-@model dynamic
-@{}
+@{
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/styles.css" />
-    <title>Sign In Page</title>
+    <title>Join Our Newsletter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
             margin: 0;
             padding-top: 50px; /* Add some padding to move down from the top */
         }
-        .signin-container {
+        .newsletter-container {
             background-color: white;
             padding: 20px;
             border-radius: 5px;
@@ -37,38 +37,24 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
-            margin-top: 10px;
-        }
-        .link {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: blue;
+            margin-top: 10px; /* Add margin for spacing */
         }
     </style>
 </head>
 <body>
-    <div class="signin-container"> <!-- This will have the black border -->
-        <h1>Sign In</h1>
-        <form method="post" action="/Account/Login">
+    <div class="newsletter-container"> <!-- Newsletter container with black border -->
+        <h1>Join Our Newsletter</h1>
+        <form method="post" action="/Newsletter/Subscribe"> <!-- Update action as needed for processing -->
             <div>
-                <label>Username</label>
-                <input type="text" name="username" required />
+                <label>Your Name:</label>
+                <input type="text" name="name" required />
             </div>
             <div>
-                <label>Password</label>
-                <input type="password" name="password" required />
+                <label>Your Email:</label>
+                <input type="email" name="email" required />
             </div>
-            <div>
-                <button type="submit" class="button">Submit</button>
-            </div>
-            <div>
-                <a href="#" class="link">Forgot Your Password? Click here</a>
-            </div>
+            <button type="submit" class="button">Submit</button>
         </form>
-        <div>
-            <a href="/Account/Register" class="link">Click here to Sign Up</a>
-        </div>
     </div>
 </body>
 </html>

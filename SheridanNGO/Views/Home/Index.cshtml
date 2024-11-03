@@ -13,6 +13,23 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
+            display: flex;
+            justify-content: center; /* Center the main container */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height for centering */
+        }
+        .container {
+            width: 600px; /* Set a specific width */
+            max-width: 90%; /* Responsive max width */
+            background-color: white; /* Outer container remains white */
+            padding: 20px; /* Padding inside the outer container */
+            border-radius: 5px; /* Rounded corners for outer container */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Shadow for outer container */
+        }
+        .inner-frame {
+            border: 2px solid black; /* Black border for inner frame */
+            padding: 20px; /* Padding inside the inner frame */
+            border-radius: 5px; /* Rounded corners for inner frame */
         }
         .header {
             display: flex; /* Use flexbox for layout */
@@ -37,7 +54,7 @@
         .about-section {
             display: flex;
             justify-content: space-around;
-            margin: 20px;
+            margin: 20px 0;
         }
         .about-content {
             flex: 1;
@@ -69,26 +86,28 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Welcome To The NGO</h1>
-        <div>
-            <a href="/Account/Create" class="top-button">Create an Account</a>
-            <a href="@Url.Action("SignIn", "Home")" class="top-button">Sign in</a>
-            <a href="@Url.Action("SignUp", "Home")" class="top-button">Create an Account</a>
-
-        </div>
-    </div>
-    <div class="about-section">
-        <div class="image-placeholder">Image Placeholder</div>
-        <div class="about-content">
-            <h2>About Us</h2>
-            <p>Learn more about our mission and the work we do.</p>
-        </div>
-    </div>
-    <div class="buttons">
-        <button class="button" onclick="location.href='/Volunteer'">To Volunteer!</button>
-        <button class="button" onclick="location.href='/Contact'">Contact Us!</button>
-        <button class="button" onclick="location.href='/Newsletter'">Join Our Newsletter</button>
+    <div class="container"> <!-- Outer container -->
+        <div class="inner-frame"> <!-- Inner frame for black border -->
+            <div class="header">
+                <h1>Welcome To The NGO</h1>
+                <div>
+                    <a href="@Url.Action("SignIn", "Home")" class="top-button">Sign in</a>
+                    <a href="@Url.Action("SignUp", "Home")" class="top-button">Create an Account</a>
+                </div>
+            </div>
+            <div class="about-section">
+                <div class="image-placeholder">Image Placeholder</div>
+                <div class="about-content">
+                    <h2>About Us</h2>
+                    <p>Learn more about our mission and the work we do.</p>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="button" onclick="location.href='@Url.Action("Volunteer", "Home")'">To Volunteer!</button>
+                <button class="button" onclick="location.href='@Url.Action("Contact", "Home")'">Contact Us!</button>
+                <button class="button" onclick="location.href='@Url.Action("Newsletter", "Home")'">Join Our Newsletter</button>
+            </div>
+        </div> <!-- End of inner frame -->
     </div>
 </body>
 </html>
