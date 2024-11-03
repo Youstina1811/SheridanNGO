@@ -16,6 +16,12 @@ namespace SheridanNGO.Controllers
         {
             return View(); // This will return the SignIn view
         }
+    
+        //Action for Sign up
+            public IActionResult SignUp()
+        {
+            return View(); // Return the SignUp view
+        }
 
 }
 }
