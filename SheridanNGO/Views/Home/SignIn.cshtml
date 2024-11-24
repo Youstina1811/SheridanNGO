@@ -14,11 +14,12 @@
             background-color: #f0f0f0;
             display: flex;
             justify-content: center; /* Center the container horizontally */
-            align-items: flex-start; /* Align items to the top */
+            align-items: center; /* Center vertically */
             height: 100vh; /* Full viewport height for centering */
             margin: 0;
-            padding-top: 50px; /* Add some padding to move down from the top */
+            padding-top: 50px; /* Add padding to move down from the top */
         }
+
         .signin-container {
             background-color: white;
             padding: 20px;
@@ -30,15 +31,30 @@
             overflow: auto; /* Add scroll if needed */
             border: 2px solid black; /* Black border */
         }
+
+        .header {
+            text-align: center; /* Center the title text */
+            margin-bottom: 20px; /* Add space below the title */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em; /* Increase font size for the title */
+            color: black; /* Title text color */
+        }
+
         .button {
-            background-color: red;
+            background-color: #ff6700; /* Orange color for buttons */
             color: white;
-            border: none;
+            border: 2px solid #ff6700; /* Orange border for buttons */
             padding: 10px 20px;
+            margin: 5px 10px; /* Adjust margin to space the buttons horizontally */
             cursor: pointer;
             font-size: 1em;
-            margin-top: 10px;
+            display: inline-block; /* Buttons displayed next to each other */
+            border-radius: 25px; /* Curvy buttons */
         }
+
         .link {
             display: block;
             margin-top: 10px;
@@ -48,8 +64,10 @@
     </style>
 </head>
 <body>
-    <div class="signin-container"> <!-- This will have the black border -->
-        <h1>Sign In</h1>
+    <div class="signin-container"> <!-- Outer container with a black border -->
+        <div class="header">
+            <h1>Sign In</h1> <!-- Title with background color -->
+        </div>
         <form method="post" action="/Account/Login">
             <div>
                 <label>Username</label>
