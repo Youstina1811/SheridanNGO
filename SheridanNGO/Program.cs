@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SheridanNGO.Models;
 using Microsoft.AspNetCore.Identity;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,15 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("AppSettings"));
+
+// Add Stripe service to the dependency injection container
+builder.Services.AddSingleton<StripeClient>(provider =>
+{
+    var stripeSettings = provider.GetRequiredService<IConfiguration>().GetSection("AppSettings").Get<StripeSettings>();
+    return new StripeClient(stripeSettings.StripeSecretKey); // Initialize StripeClient with secret key
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -56,3 +66,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+public class StripeSettings
+{
+    public string StripeSecretKey { get; set; }
+    public string StripePublishableKey { get; set; }
+}
