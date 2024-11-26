@@ -16,7 +16,7 @@ public class DonationDbContext : DbContext
         modelBuilder.Entity<NGO>()
             .HasMany(n => n.Campaigns)
             .WithOne(c => c.NGO)
-            .HasForeignKey(c => c.NGOId);
+            .HasForeignKey(c => c.NGOId); 
 
         modelBuilder.Entity<User>()
             .HasMany(u => u.Donations)
