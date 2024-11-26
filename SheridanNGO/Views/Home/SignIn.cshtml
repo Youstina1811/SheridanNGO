@@ -12,12 +12,12 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
             display: flex;
-            justify-content: center; /* Center the container horizontally */
+            justify-content: center; /* Center horizontally */
             align-items: center; /* Center vertically */
             height: 100vh; /* Full viewport height for centering */
-            margin: 0;
-            padding-top: 50px; /* Add padding to move down from the top */
         }
 
         .signin-container {
@@ -65,8 +65,8 @@
         }
 
         .input-container {
-            display: flex; /* Use flexbox to align the label and input fields vertically */
-            flex-direction: column; /* Stack label above input field */
+            display: flex; /* Flexbox for label and input vertically */
+            flex-direction: column; /* Stack the label above the input field */
             margin-bottom: 15px; /* Space between input fields */
         }
 
@@ -78,7 +78,6 @@
             display: inline-block; /* To make the labels fit around the text */
         }
 
-        /* Curvy input fields with fixed size */
         input[type="text"],
         input[type="password"] {
             padding: 10px;
