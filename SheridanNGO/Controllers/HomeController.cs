@@ -38,5 +38,10 @@ namespace SheridanNGO.Controllers
             return View(); // This will return the Newsletter.cshtml view
         }
 
+            public IActionResult MainPage()
+        {
+            return View(); // This will return the Newsletter.cshtml view
+        }
+
 }
 }

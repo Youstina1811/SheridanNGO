@@ -12,6 +12,7 @@ public class DonationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         // Define relationships
         modelBuilder.Entity<NGO>()
             .HasMany(n => n.Campaigns)

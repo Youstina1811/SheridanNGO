@@ -1,0 +1,97 @@
+@{
+    ViewData["Title"] = "Where You Can Help";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        .header {
+            background-color: #f1c40f; /* Yellow background */
+            padding: 20px;
+            color: #2c3e50; /* Dark text */
+            text-align: center;
+        }
+
+        .help-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .help-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ecf0f1; /* Light gray */
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .button {
+            background-color: #ff6700;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 25px;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Sheridan NGO</h1>
+            <p>Where you can help!</p>
+        </div>
+
+        <div class="help-section">
+            <!-- Repeat this block for each help section -->
+            <div class="help-item">
+                <div class="help-info">
+                    <h3>Campaign Title</h3>
+                    <p>Description of the campaign goes here.</p>
+                </div>
+                <button class="button">Join Now</button>
+            </div>
+            <!-- Example of an empty section to match the layout -->
+            <div class="help-item">
+                <div class="help-info">
+                    <h3>Campaign Title</h3>
+                    <p>Description of the campaign goes here.</p>
+                </div>
+                <button class="button">Join Now</button>
+            </div>
+
+            <!-- Add "Load More" button -->
+            <div class="help-item">
+                <button class="button">Load More</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
