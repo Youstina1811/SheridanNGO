@@ -16,8 +16,10 @@ namespace SheridanNGO.Models
         public String Password { get; set; }
         public String Phone { get; set; }
         public String Address { get; set; }
+
+        public UserType UserType { get; set; }
       
-        public User(string name, string email, string password, string phone, string address)
+        public User(string name, string email, string password, string phone, string address, UserType type = UserType.Donor)
         {
             Name = name;
             Email = email;
