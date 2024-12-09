@@ -1,5 +1,5 @@
-@model dynamic
-@{}
+@{
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,11 +14,11 @@
             background-color: #f0f0f0;
             display: flex;
             justify-content: center; /* Center the container horizontally */
-            align-items: flex-start; /* Align items to the top */
+            align-items: center; /* Center vertically */
             height: 100vh; /* Full viewport height for centering */
             margin: 0;
-            padding-top: 50px; /* Add some padding to move down from the top */
         }
+
         .signup-container {
             background-color: white;
             padding: 20px;
@@ -30,45 +30,101 @@
             overflow: auto; /* Add scroll if needed */
             border: 2px solid black; /* Black border */
         }
+
+        .header {
+            background-color: #ffdab9; /* Background color for the top section */
+            text-align: center; /* Center the title text */
+            margin-bottom: 20px; /* Add space below the title */
+            padding: 20px 0; /* Add vertical padding to the header */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em; /* Increase font size for the title */
+            color: black; /* Title text color */
+        }
+
         .button {
-            background-color: red;
+            background-color: #ff6700; /* Orange color for buttons */
             color: white;
-            border: none;
+            border: 2px solid #ff6700; /* Orange border for buttons */
             padding: 10px 20px;
+            margin: 5px 10px; /* Adjust margin to space the buttons horizontally */
             cursor: pointer;
             font-size: 1em;
-            margin-top: 10px; /* Add margin for spacing */
+            display: inline-block; /* Buttons displayed next to each other */
+            border-radius: 25px; /* Curvy buttons */
+            text-decoration: none; /* Remove underline from links */
         }
+
         .link {
             display: block;
             margin-top: 10px;
             text-align: center;
             color: blue;
         }
+
+        .input-container {
+            display: flex; /* Use flexbox to align the label and input fields horizontally */
+            flex-direction: column; /* Stack label above input field */
+            margin-bottom: 15px; /* Space between input fields */
+        }
+
+        label {
+            background-color: #f5f5f5; /* Light gray background for labels */
+            padding: 10px; /* Padding inside the label */
+            border-radius: 15px; /* Rounded corners for labels */
+            margin-bottom: 5px; /* Space between label and input field */
+            display: inline-block; /* To make the labels fit around the text */
+        }
+
+        /* Curvy input fields with fixed size */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            border-radius: 15px; /* Rounded corners for input fields */
+            border: 2px solid #ccc; /* Light gray border */
+            font-size: 1em;
+            width: 100%; /* Make the input fields take full width of the container */
+            box-sizing: border-box; /* Ensures padding doesn't overflow */
+        }
+
     </style>
 </head>
 <body>
-    <div class="signup-container"> <!-- Sign-up container -->
-        <h1>Sign Up</h1>
+    <div class="signup-container"> <!-- Sign-up container with black border -->
+        <div class="header">
+            <h1>Sign Up</h1> <!-- Title with background color -->
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+
         <form method="post" action="/Account/Register"> <!-- Update action as needed for processing -->
-            <div>
-                <label>Full Name</label>
-                <input type="text" name="fullName" required />
+            <div class="input-container">
+                <label for="fullName">Full Name</label>
+                <input type="text" name="fullName" id="fullName" required />
+            </div>
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required />
+            </div>
+            <div class="input-container">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required />
+            </div>
+            <div class="input-container">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" required />
             </div>
             <div>
-                <label>Email</label>
-                <input type="email" name="email" required />
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" name="password" required />
-            </div>
-            <div>
-                <label>Confirm Password</label>
-                <input type="password" name="confirmPassword" required />
-            </div>
-            <div>
-                <button type="submit" class="button">Submit</button>
+                <button type="register" class="button">Register</button>
             </div>
         </form>
         <div>
