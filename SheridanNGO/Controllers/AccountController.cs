@@ -13,12 +13,7 @@ namespace SheridanNGO.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
 
-        public AccountController(Microsoft.AspNetCore.Identity.UserManager<User> userManager, SignInManager<User> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
-
+       
         public IActionResult Login()
         {
             return View();
@@ -42,8 +37,8 @@ namespace SheridanNGO.Controllers
 
         //test sign in page backend.
 
-        [HttpPost]
-public async Task<IActionResult> Login(string username, string password, bool rememberMe = false)
+//        [HttpPost]
+/*public async Task<IActionResult> Login(string username, string password, bool rememberMe = false)
 {
     if (ModelState.IsValid)
     {
@@ -63,20 +58,17 @@ public async Task<IActionResult> Login(string username, string password, bool re
         }
     }
     return View();
-}
+}*/
 
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+       
 
-        [HttpPost]
+        /*[HttpPost]
         public async Task<IActionResult> Register(User model)
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { Name = model.Name, Email = model.Email,Password = model.Password, Phone="123123",Address = "blah blah" };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -90,6 +82,38 @@ public async Task<IActionResult> Login(string username, string password, bool re
             }
             return View(model);
         }
+*/
+        [HttpPost]
+        public async Task<IActionResult> Register(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Hash the password
+                var hasher = new PasswordHasher<User>();
+                var passwordHash = hasher.HashPassword(null, model.Password);
+
+                // Create the user instance
+                var user = new User
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = passwordHash,
+                    Phone = model.Phone,
+                    Address = model.Address
+                };
+
+                // Save user to the database (example, adapt to your DbContext)
+               // _dbContext.Users.Add(user);
+               // await _dbContext.SaveChangesAsync();
+
+                // Handle login or redirect
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Return view with validation errors
+            return View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Logout()

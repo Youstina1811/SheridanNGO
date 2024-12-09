@@ -9,7 +9,7 @@ namespace SheridanNGO.Models
         Admin
     }
 
-    public class User : IdentityUser
+    public class User 
     {
         public String Name { get; set; }
         public String Email { get; set; }
