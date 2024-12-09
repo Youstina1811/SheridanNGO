@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SheridanNGO.Models;
 using Microsoft.AspNetCore.Identity;
+using AspNetCoreGeneratedDocument;
 
 namespace SheridanNGO.Controllers
 {
@@ -12,19 +13,23 @@ namespace SheridanNGO.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
-
+        private DonationDbContext _donationDbContext;
        
-        public IActionResult Login()
+        User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
+       
+       
+/*        public IActionResult Login()
         {
+          //  _donationDbContext.Add(admin);
             return View();
-        }/*
+        }*/
 
         [HttpPost]
         public async Task<IActionResult> Login(User model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password,true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -32,7 +37,7 @@ namespace SheridanNGO.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
             return View(model);
-        }*/
+        }
 
 
         //test sign in page backend.
@@ -103,8 +108,8 @@ namespace SheridanNGO.Controllers
                 };
 
                 // Save user to the database (example, adapt to your DbContext)
-               // _dbContext.Users.Add(user);
-               // await _dbContext.SaveChangesAsync();
+                _donationDbContext.Users.Add(user);
+                await _donationDbContext.SaveChangesAsync();
 
                 // Handle login or redirect
                 return RedirectToAction("Index", "Home");
