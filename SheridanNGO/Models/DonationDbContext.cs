@@ -6,21 +6,33 @@ public class DonationDbContext : DbContext
     public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Donation> Donations { get; set; }
     public DbSet<NGO> NGOs { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
-    public DbSet<Donation> Donations { get; set; }
+    public DbSet<Receipt> Receipts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Define relationships
-        modelBuilder.Entity<NGO>()
-            .HasMany(n => n.Campaigns)
-            .WithOne(c => c.NGO)
-            .HasForeignKey(c => c.NGOId);
+        base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.Donations)
-            .WithOne(d => d.User)
-            .HasForeignKey(d => d.UserId);
+        modelBuilder.Entity<Donation>()
+            .HasOne(d => d.Donor)
+            .WithMany(u => u.Donations)
+            .HasForeignKey(d => d.DonorID);
+
+        modelBuilder.Entity<Donation>()
+            .HasOne(d => d.NGO)
+            .WithMany(n => n.Donations)
+            .HasForeignKey(d => d.NGOID);
+
+        modelBuilder.Entity<Campaign>()
+            .HasOne(c => c.NGO)
+            .WithMany(n => n.Campaigns)
+            .HasForeignKey(c => c.NGOID);
+
+        modelBuilder.Entity<Receipt>()
+            .HasOne(r => r.Donation)
+            .WithMany()
+            .HasForeignKey(r => r.DonationID);
     }
 }

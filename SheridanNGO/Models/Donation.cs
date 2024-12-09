@@ -1,14 +1,16 @@
 namespace SheridanNGO.Models{
     public class Donation
     {
-        public int DonationId { get; set; }
+        public int DonationID { get; set; }
+        public int DonorID { get; set; }
         public decimal Amount { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DonationDate { get; set; }
+        public bool Recurring { get; set; }
+        public int NGOID { get; set; }
 
-        // Foreign Keys
-        public int UserId { get; set; }
-        public User User { get; set; }
-        public int CampaignId { get; set; }
-        public Campaign Campaign { get; set; }
+        // Navigation properties
+        public User Donor { get; set; }
+        public NGO NGO { get; set; }
     }
+
 }

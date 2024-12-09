@@ -9,25 +9,27 @@ namespace SheridanNGO.Models
         Admin
     }
 
-    public class User : IdentityUser
+    public class User
     {
-        public String Name { get; set; }
-        public String Email { get; set; }
-        public String Password { get; set; }
-        public String Phone { get; set; }
-        public String Address { get; set; }
-      
-        public User(string name, string email, string password, string phone, string address)
-        {
-            Name = name;
-            Email = email;
-            Password = password;
-            Phone = phone;
-            Address = address;
-        }
+        public int UserID { get; set; }
 
-        public User() { }
+        public string Email { get; set; }
 
+        public string Password { get; set; }  // Changed from PasswordHash to Password
+
+        public string Name { get; set; }  // Changed from FullName to Name
+
+        public string UserType { get; set; }  // Changed from Role to UserType ('donor', 'ngo', etc.)
+
+        public string Phone { get; set; }  // Changed from PhoneNumber to Phone
+
+        public string Address { get; set; }  // Changed from DateCreated (DateTime) to Address (string)
+
+        public DateTime DateCreated { get; set; }  // This remains unchanged to track account creation date.
+
+        // Navigation property for donations
         public ICollection<Donation> Donations { get; set; }
     }
+
+
 }
