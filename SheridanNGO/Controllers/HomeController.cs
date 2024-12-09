@@ -6,14 +6,19 @@ namespace SheridanNGO.Controllers
 {
     public class HomeController : Controller
 {
+        private DonationDbContext _context;
+
     public IActionResult Index()
     {
+           
         return View();
     }
 
         // Action for Sign In
         public IActionResult SignIn()
         {
+          //  User admin = new User("admin", "admin@sheridan.com", "admin", "234234", "Sheridan College", UserType.Admin);
+            //_context.AddUser(admin);
             return View(); // This will return the SignIn view
         }
     
