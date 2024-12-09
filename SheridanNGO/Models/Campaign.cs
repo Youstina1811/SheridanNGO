@@ -2,18 +2,27 @@ namespace SheridanNGO.Models{
 
     public class Campaign
     {
-        public int CampaignId { get; set; }
-        public required string Title { get; set; }
-        public required string Description { get; set; }
-        public decimal GoalAmount { get; set; }
-        public decimal CurrentAmount { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public int CampaignID { get; set; }
 
-        // Foreign Keys
-        public int NGOId { get; set; }
-        public required NGO  NGO { get; set; }
+        public int NGOID { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public decimal GoalAmount { get; set; }
+
+        public decimal CurrentAmount { get; set; }  // Changed from RaisedAmount to CurrentAmount
+
+        public DateTime StartDate { get; set; }  // Replaced Deadline with StartDate
+        public DateTime EndDate { get; set; }    // Replaced Deadline with EndDate
+
+        public string CauseCategory { get; set; } // Cause category (e.g., 'education', 'healthcare', etc.)
+
+        // Navigation property
+        public NGO NGO { get; set; }
     }
+
 
 
 }
