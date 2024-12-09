@@ -88,6 +88,32 @@ namespace SheridanNGO.Controllers
             return View(model);
         }
 */
+
+
+[HttpPost]
+public async Task<IActionResult> Login(LoginViewModel model)
+{
+    if (ModelState.IsValid)
+    {
+        // Use SignInManager to authenticate the user
+        var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+        
+        if (result.Succeeded)
+        {
+            // Redirect to the main page after successful login
+            return RedirectToAction("Index", "Home");
+        }
+        else
+        {
+            // If the login failed, add an error to ModelState
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        }
+    }
+    
+    // If we reach this point, it means there was an error and the user will be returned to the login page
+    return View(model);
+}
+
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
