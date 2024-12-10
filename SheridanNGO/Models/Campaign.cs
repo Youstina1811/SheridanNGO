@@ -1,4 +1,5 @@
-namespace SheridanNGO.Models{
+namespace SheridanNGO.Models
+{
 
     public class Campaign
     {
@@ -12,6 +13,7 @@ namespace SheridanNGO.Models{
 
         public decimal GoalAmount { get; set; }
 
+  /*      public string ImageUrl { get; set; }*/
         public decimal CurrentAmount { get; set; }  // Changed from RaisedAmount to CurrentAmount
 
         public DateTime StartDate { get; set; }  // Replaced Deadline with StartDate
@@ -21,8 +23,28 @@ namespace SheridanNGO.Models{
 
         // Navigation property
         public NGO NGO { get; set; }
+
+        public Campaign(int campaignID, int nGOID, string title, string description, decimal goalAmount,  decimal currentAmount, DateTime startDate, DateTime endDate, string causeCategory, NGO nGO)
+        {
+            CampaignID = campaignID;
+            NGOID = nGOID;
+            Title = title;
+            Description = description;
+            GoalAmount = goalAmount;
+         /*   ImageUrl = imageUrl;*/
+            CurrentAmount = currentAmount;
+            StartDate = startDate;
+            EndDate = endDate;
+            CauseCategory = causeCategory;
+            NGO = nGO;
+        }
+
+        public Campaign()
+        {
+
+        }
+
+
+
     }
-
-
-
 }
