@@ -15,14 +15,14 @@ namespace SheridanNGO.Controllers
         private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
         private DonationDbContext _donationDbContext;
 
-        // User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
+        //User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
+        User admin = new User("admin@sheridan.com", "23423423", "admin", "admin", "905 905 9055", "Sheridan College");
 
-
-        /*        public IActionResult Login()
-                {
-                  //  _donationDbContext.Add(admin);
-                    return View();
-                }*/
+/*        public IActionResult Login()
+        {
+          //  _donationDbContext.Add(admin);
+            return View();
+        }*/
 
 
         [HttpGet]
@@ -35,11 +35,6 @@ namespace SheridanNGO.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(User model)
         {
-            if (model.Email == "admin@sheridan.com" && model.Password == "admin")
-            {
-                return RedirectToAction("Admin","Account");  
-            }
-
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password,true, lockoutOnFailure: false);
@@ -103,7 +98,7 @@ namespace SheridanNGO.Controllers
         }
 */
 
-/* Second
+
 [HttpPost]
 public async Task<IActionResult> Login(LoginViewModel model)
 {
@@ -127,75 +122,36 @@ public async Task<IActionResult> Login(LoginViewModel model)
     // If we reach this point, it means there was an error and the user will be returned to the login page
     return View(model);
 }
-*/
-        /*  [HttpPost]
-          public async Task<IActionResult> Register(User model)
-          {
-              model.Phone = "9999999999";
-              model.Address = "Sheridan";
-              List<Donation> donations = new List<Donation>();
-              model.Donations = donations;
-              if (ModelState.IsValid)
-              {
-                  // Hash the password
-                  var hasher = new PasswordHasher<User>();
-                  var passwordHash = hasher.HashPassword(null, model.Password);
 
-                  // Create the user instance
-                  var user = new User
-                  {
-                      Name = model.Name,
-                      Email = model.Email,
-                      Password = passwordHash,
-                      Phone = model.Phone,
-                      Address = model.Address
-                  };
-
-                  _donationDbContext.Users.Add(user);
-                  await _donationDbContext.SaveChangesAsync();
-
-                  // Handle login or redirect
-                  return RedirectToAction("Index", "Home");
-              }
-
-              // Return view with validation errors
-              return View(model);
-          }
-        */
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
-            // Custom validation
-            if (string.IsNullOrWhiteSpace(model.Name) || string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Name, Email, and Password are required fields.");
-                return View(model);
+                // Hash the password
+                var hasher = new PasswordHasher<User>();
+                var passwordHash = hasher.HashPassword(null, model.Password);
+
+                // Create the user instance
+                var user = new User
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = passwordHash,
+                    Phone = model.Phone,
+                    Address = model.Address
+                };
+
+                // Save user to the database (example, adapt to your DbContext)
+                _donationDbContext.Users.Add(user);
+                await _donationDbContext.SaveChangesAsync();
+
+                // Handle login or redirect
+                return RedirectToAction("Index", "Home");
             }
 
-            // Set defaults for optional fields
-            model.Phone ??= "9999999999";
-            model.Address ??= "Sheridan";
-            model.Donations ??= new List<Donation>();
-
-            // Hash the password
-            var hasher = new PasswordHasher<User>();
-            var passwordHash = hasher.HashPassword(null, model.Password);
-
-            // Create the user instance
-            var user = new User
-            {
-                Name = model.Name,
-                Email = model.Email,
-                Password = passwordHash,
-                Phone = model.Phone,
-                Address = model.Address
-            };
-
-          //  _donationDbContext.Users.Add(user);
-           // await _donationDbContext.SaveChangesAsync();
-
-            // Redirect on success
-            return RedirectToAction("Index", "Home");
+            // Return view with validation errors
+            return View(model);
         }
 
 
