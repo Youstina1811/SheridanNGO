@@ -4,7 +4,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SheridanNGO.Models;
 using Microsoft.AspNetCore.Identity;
-using AspNetCoreGeneratedDocument;
 
 namespace SheridanNGO.Controllers
 {
@@ -32,7 +31,7 @@ namespace SheridanNGO.Controllers
         }
 
 
-        [HttpPost]
+     /*   [HttpPost]
         public async Task<IActionResult> Login(User model)
         {
             if (ModelState.IsValid)
@@ -47,7 +46,7 @@ namespace SheridanNGO.Controllers
             return View(model);
         }
 
-
+*/
   
         //test sign in page backend.
 
@@ -100,12 +99,16 @@ namespace SheridanNGO.Controllers
 
 
 [HttpPost]
-public async Task<IActionResult> Login(LoginViewModel model)
+public async Task<IActionResult> Login(User model)
 {
+            if(model.UserType == "admin")
+            {
+                RedirectToAction("Admin");
+            }
     if (ModelState.IsValid)
     {
         // Use SignInManager to authenticate the user
-        var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: false);
         
         if (result.Succeeded)
         {
