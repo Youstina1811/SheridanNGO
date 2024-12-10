@@ -91,6 +91,16 @@
 <body>
     <div class="volunteer-container"> <!-- Volunteer container with black border -->
         <h1>Helping others is good!</h1>
+
+
+                @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        
         <form method="post" action="/Volunteer/Submit"> <!-- Update action as needed -->
             <div class="input-container">
                 <label>Your Name:</label>
