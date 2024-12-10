@@ -22,13 +22,24 @@ namespace SheridanNGO.Controllers
         //User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
         User admin = new User("admin@sheridan.com", "23423423", "admin", "admin", "905 905 9055", "Sheridan College");
 
-        /*
-        public IActionResult Login()
+        
+        public IActionResult Admin()
         {
-            
-            return View();
+            var donors = _context.Users.Where(u => u.UserType == "donor").ToList();
+            var ngos = _context.Users.Where(u => u.UserType == "ngo").ToList();
+            var admins = _context.Users.Where(u => u.UserType == "admin").ToList();
+
+            var model = new
+            {
+                Donors = donors,
+                NGOs = ngos,
+                Admins = admins
+
+            };
+
+            return View(model);
         }
-        */
+        
 
 
      /*   [HttpPost]
@@ -67,6 +78,10 @@ namespace SheridanNGO.Controllers
 
             if (user != null)
             {
+                if (user.Email == "admin@sheridan.com" && user.Password == "23423423")
+                {
+                    return RedirectToAction("Admin", "Account");
+                }
                 // Verify the password (hashed)
                 var hasher = new PasswordHasher<User>();
                 var result = hasher.VerifyHashedPassword(user, user.Password, model.Password);
@@ -74,7 +89,7 @@ namespace SheridanNGO.Controllers
                 if (result == Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success)
                 {
                     // Check user type and redirect accordingly
-                    if (user.UserType == "Admin")
+                    if (user.UserType == "admin")
                     {
                         return RedirectToAction("Admin", "Account");
                     }
@@ -216,5 +231,93 @@ public async Task<IActionResult> Login(LoginViewModel model)
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+        [HttpGet]
+        public IActionResult GetDonors()
+        {
+            var donors = _context.Users
+                .Where(u => u.UserType == "donor")
+                .Select(u => new { u.UserID, u.Name, u.Email, u.Phone,u.UserType,u.Address })
+                .ToList();
+
+            return Json(donors);
+        }
+
+
+        [HttpGet]
+        public IActionResult GetNGOs()
+        {
+            var ngos = _context.Users
+                .Where(u => u.UserType == "NGO")
+                .Select(u => new { u.UserID, u.Name, u.Email, u.Phone, u.UserType, u.Address })
+                .ToList();
+
+            return Json(ngos);
+        }
+
+
+        [HttpPost]
+        public IActionResult MakeAdmin(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserID == id);
+
+            if (user != null && user.UserType == "donor")
+            {
+                user.UserType = "admin";
+                _context.SaveChanges();
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                // Retrieve user by ID
+                var user = _context.Users.FirstOrDefault(u => u.UserID == id);
+
+                if (user == null)
+                {
+                    return NotFound("User not found.");
+                }
+
+                // Remove user
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+
+                return Ok("User deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DemoteAdmin(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserID == id);
+
+            if (user == null)
+                return NotFound("User not found.");
+
+            if (user.Email == "admin")
+                return BadRequest("The main admin cannot be demoted.");
+
+            if (user.UserType == "admin")
+            {
+                user.UserType = "donor"; // Change admin to donor
+                _context.SaveChanges();
+                return Ok("Admin demoted to Donor successfully.");
+            }
+
+            return BadRequest("User is not an admin.");
+        }
+
     }
 }
+
