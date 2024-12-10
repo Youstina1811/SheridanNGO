@@ -1,16 +1,11 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Numerics;
 
 namespace SheridanNGO.Models
 {
-
-    public enum UserType
-    {   Donor,
-        NGO,
-        Admin
-    }
-
     public class User
     {
+        // Properties of the User model
         public int UserID { get; set; }
 
         public string Email { get; set; }
@@ -25,11 +20,27 @@ namespace SheridanNGO.Models
 
         public string Address { get; set; }  // Changed from DateCreated (DateTime) to Address (string)
 
-        public DateTime DateCreated { get; set; }  // This remains unchanged to track account creation date.
+        // Constructor to initialize properties
+        public User(string email, string password, string name, string userType, string phone, string address)
+        {
+            Email = email;
+            Password = password;
+            Name = name;
+            UserType = userType;
+            Phone = phone;
+            Address = address;
+        }
 
-        // Navigation property for donations
+        // Parameterless constructor for Entity Framework and other uses
+        public User() { }
+
         public ICollection<Donation> Donations { get; set; }
     }
-
-
 }
+
+
+/*
+ * 
+ 
+ * 
+ */

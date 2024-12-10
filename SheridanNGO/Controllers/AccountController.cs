@@ -14,15 +14,17 @@ namespace SheridanNGO.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
         private DonationDbContext _donationDbContext;
-       
-        User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
-       
-       
+
+        //User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
+        User admin = new User("admin@sheridan.com", "23423423", "admin", "admin", "905 905 9055", "Sheridan College");
+
 /*        public IActionResult Login()
         {
           //  _donationDbContext.Add(admin);
             return View();
         }*/
+
+
 
         [HttpPost]
         public async Task<IActionResult> Login(User model)

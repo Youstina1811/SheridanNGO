@@ -28,7 +28,7 @@ public class CampaignsController : Controller
         }
 
         var campaign = await _context.Campaigns
-            .FirstOrDefaultAsync(m => m.CampaignId == id);
+            .FirstOrDefaultAsync(m => m.CampaignID == id);
 
         if (campaign == null)
         {
@@ -75,7 +75,7 @@ public class CampaignsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("CampaignId,Title,Description,GoalAmount,CurrentAmount,StartDate,EndDate,NGOId")] Campaign campaign)
     {
-        if (id != campaign.CampaignId) return NotFound();
+        if (id != campaign.CampaignID) return NotFound();
 
         if (ModelState.IsValid)
         {
@@ -91,7 +91,7 @@ public class CampaignsController : Controller
     {
         if (id == null) return NotFound();
 
-        var campaign = await _context.Campaigns.FirstOrDefaultAsync(m => m.CampaignId == id);
+        var campaign = await _context.Campaigns.FirstOrDefaultAsync(m => m.CampaignID == id);
         if (campaign == null) return NotFound();
 
         return View(campaign);
