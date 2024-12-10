@@ -27,6 +27,11 @@ namespace SheridanNGO.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(User model)
         {
+            if (model.Email == "admin@sheridan.com" && model.Password == "admin")
+            {
+                return RedirectToAction("Admin","Account");  
+            }
+
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password,true, lockoutOnFailure: false);
@@ -39,6 +44,12 @@ namespace SheridanNGO.Controllers
             return View(model);
         }
 
+
+        [HttpPost]
+        public IActionResult Admin()
+        {
+            return View();
+        }
 
         //test sign in page backend.
 
@@ -89,7 +100,7 @@ namespace SheridanNGO.Controllers
         }
 */
 
-
+/* Second
 [HttpPost]
 public async Task<IActionResult> Login(LoginViewModel model)
 {
@@ -113,7 +124,7 @@ public async Task<IActionResult> Login(LoginViewModel model)
     // If we reach this point, it means there was an error and the user will be returned to the login page
     return View(model);
 }
-
+*/
         /*  [HttpPost]
           public async Task<IActionResult> Register(User model)
           {
