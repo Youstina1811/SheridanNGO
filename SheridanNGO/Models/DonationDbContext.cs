@@ -10,6 +10,9 @@ public class DonationDbContext : DbContext
     public DbSet<NGO> NGOs { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<Receipt> Receipts { get; set; }
+    public DbSet<Contact> Contacts{ get; set; }
+    public DbSet<Volunteer> Volunteers { get; set; }
+
 
     public void AddUser(User user)
     {
