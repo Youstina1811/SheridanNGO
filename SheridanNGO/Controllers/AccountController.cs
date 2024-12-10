@@ -14,15 +14,23 @@ namespace SheridanNGO.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
         private DonationDbContext _donationDbContext;
-       
-       // User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
-       
-       
-/*        public IActionResult Login()
+
+        // User admin = new User("admin","admin@sheridan.com","admin","23423423","Sheridan College");
+
+
+        /*        public IActionResult Login()
+                {
+                  //  _donationDbContext.Add(admin);
+                    return View();
+                }*/
+
+
+        [HttpGet]
+        public IActionResult Admin()
         {
-          //  _donationDbContext.Add(admin);
             return View();
-        }*/
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Login(User model)
@@ -45,12 +53,7 @@ namespace SheridanNGO.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult Admin()
-        {
-            return View();
-        }
-
+  
         //test sign in page backend.
 
 //        [HttpPost]
