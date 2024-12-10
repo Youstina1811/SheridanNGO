@@ -97,15 +97,16 @@
         </div>
         <form method="post" action="/Account/Login">
             <div class="input-container">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" required />
+                <label for="Email">Email</label>
+                <input type="text" name="Email" id="Email" required />
             </div>
             <div class="input-container">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" required />
             </div>
             <div>
-                <button type="submit" class="button">Submit</button>
+                <button type="submit" class="button" onclick="window.location.href='/Home/MainPage'">Submit</button>
+
             </div>
             <div>
                 <a href="#" class="link">Forgot Your Password? Click here</a>

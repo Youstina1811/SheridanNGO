@@ -11,6 +11,11 @@ public class DonationDbContext : DbContext
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<Receipt> Receipts { get; set; }
 
+    public void AddUser(User user)
+    {
+        this.Users.Add(user);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
