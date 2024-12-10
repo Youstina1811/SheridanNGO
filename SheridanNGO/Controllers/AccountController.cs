@@ -216,6 +216,27 @@ namespace SheridanNGO.Controllers
             return View(receipts);
         }
 
+        // Logout method
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
+
+        // Explore Campaign method
+        public IActionResult ExploreCampaign(int id)
+        {
+            var campaign = _context.Campaigns.Include(c => c.NGO).FirstOrDefault(c => c.CampaignID == id);
+            if (campaign == null)
+            {
+                return NotFound();
+            }
+
+            return View(campaign); // Display the campaign details view
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> DownloadReceipt(int id)
         {
@@ -402,12 +423,7 @@ public async Task<IActionResult> Login(LoginViewModel model)
 
 
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
+     
 
 
         [HttpGet]
