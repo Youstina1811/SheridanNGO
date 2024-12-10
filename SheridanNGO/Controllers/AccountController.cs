@@ -31,7 +31,7 @@ namespace SheridanNGO.Controllers
         */
 
 
-        [HttpPost]
+     /*   [HttpPost]
         public async Task<IActionResult> Login(User model)
         {
             _context.Users.Add(admin);
@@ -48,6 +48,42 @@ namespace SheridanNGO.Controllers
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
+            return View(model);
+        }
+*/
+
+        [HttpPost]
+        public async Task<IActionResult> Login(User model)
+        {
+            // Check for required fields manually
+            if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+            {
+                ModelState.AddModelError(string.Empty, "Email and Password are required.");
+                return View(model);
+            }
+
+            // Find the user in the database
+            var user =  _context.Users.FirstOrDefault(u => u.Email == model.Email);
+
+            if (user != null)
+            {
+                // Verify the password (hashed)
+                var hasher = new PasswordHasher<User>();
+                var result = hasher.VerifyHashedPassword(user, user.Password, model.Password);
+
+                if (result == Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success)
+                {
+                    // Check user type and redirect accordingly
+                    if (user.UserType == "Admin")
+                    {
+                        return RedirectToAction("Admin", "Account");
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid email or password.");
             return View(model);
         }
 
