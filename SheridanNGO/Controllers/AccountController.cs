@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SheridanNGO.Models;
 using Microsoft.AspNetCore.Identity;
-using AspNetCoreGeneratedDocument;
+//using AspNetCoreGeneratedDocument;
 
 namespace SheridanNGO.Controllers
 {
@@ -130,33 +130,48 @@ public async Task<IActionResult> Login(LoginViewModel model)
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
+
+            foreach (var entry in ModelState)
+            {
+                var fieldName = entry.Key;
+                var errors = entry.Value.Errors;
+
+                foreach (var error in errors)
+                {
+                    Console.WriteLine($"Field: {fieldName}, Error: {error.ErrorMessage}");
+                }
+            }
             if (ModelState.IsValid)
             {
                 // Hash the password
                 var hasher = new PasswordHasher<User>();
                 var passwordHash = hasher.HashPassword(null, model.Password);
 
-                // Create the user instance
-                var user = new User
-                {
-                    Name = model.Name,
-                    Email = model.Email,
-                    Password = passwordHash,
-                    Phone = model.Phone,
-                    Address = model.Address
-                };
+                // Create the user instance with all required fields
+                var user = new User(
+                    model.Email,
+                    passwordHash,
+                    model.Name,
+                    "donor",  // Default UserType, e.g., 'donor'
+                    model.Phone ?? "999 999 9999",  // Default phone if empty
+                    model.Address ?? "Somewhere"     // Default address if empty
+                );
 
-                // Save user to the database (example, adapt to your DbContext)
+                // Add the user to the context
                 _context.Users.Add(user);
+
+                // Save the changes to the database
                 await _context.SaveChangesAsync();
 
                 // Handle login or redirect
                 return RedirectToAction("Index", "Home");
             }
 
-            // Return view with validation errors
+            // Return the view with validation errors if ModelState is invalid
             return View(model);
         }
+
+
 
 
         [HttpPost]

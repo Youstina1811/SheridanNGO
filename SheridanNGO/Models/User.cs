@@ -34,7 +34,7 @@ namespace SheridanNGO.Models
         // Parameterless constructor for Entity Framework and other uses
         public User() { }
 
-        public ICollection<Donation> Donations { get; set; }
+        public ICollection<Donation> Donations { get; set; } = new List<Donation>();
     }
 }
 
