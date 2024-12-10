@@ -1,26 +1,174 @@
-﻿@{
-    ViewData["Title"] = "Admin";
-}
+﻿@model dynamic
 
-<h1>Admin Dashboard</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<div>
-    <button id="btn-donors" class="btn btn-primary">Show Donors</button>
-    <button id="btn-ngos" class="btn btn-secondary">Show NGOs</button>
-</div>
-
-<div id="result" class="mt-4"></div>
-
-@section Scripts {
     <script>
-        $(document).ready(function () {
-            $("#btn-donors").click(function () {
-                $("#result").load('/Admin/ListDonors');
-            });
+        function toggleSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll(".section").forEach(section => section.style.display = "none");
 
-            $("#btn-ngos").click(function () {
-                $("#result").load('/Admin/ListNGOs');
-            });
-        });
+            // Show the selected section
+            document.getElementById(sectionId).style.display = "block";
+        }
+
+        function makeAdmin(userId) {
+            fetch(`/Account/MakeAdmin/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("User promoted to Admin successfully!");
+                    location.reload();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .catch(error => alert("Failed to promote user to Admin: " + error.message));
+        }
+
+        function demoteAdmin(userId) {
+            fetch(`/Account/DemoteAdmin/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Admin demoted to Donor successfully!");
+                    location.reload();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .catch(error => alert("Failed to demote admin: " + error.message));
+        }
+
+        function deleteUser(userId) {
+            fetch(`/Account/DeleteUser/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("User deleted successfully!");
+                    location.reload();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .catch(error => alert("Failed to delete user: " + error.message));
+        }
     </script>
-}
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-5">Admin Dashboard</h1>
+
+        <!-- Navigation Buttons -->
+        <div class="d-flex justify-content-center mb-4">
+            <button class="btn btn-primary mx-2" onclick="toggleSection('donorsSection')">Show Donors</button>
+            <button class="btn btn-success mx-2" onclick="toggleSection('ngosSection')">Show NGOs</button>
+            <button class="btn btn-warning mx-2" onclick="toggleSection('adminsSection')">Show Admins</button>
+        </div>
+
+        <!-- Donors Section -->
+        <div id="donorsSection" class="section" style="display: none;">
+            <h2>List of Donors</h2>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var donor in Model.Donors)
+                    {
+                        <tr>
+                            <td>@donor.Name</td>
+                            <td>@donor.Email</td>
+                            <td>@donor.Phone</td>
+                            <td>
+                                <button class="btn btn-success btn-sm me-2" onclick="makeAdmin(@donor.UserID)">Promote to Admin</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteUser(@donor.UserID)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NGOs Section -->
+        <div id="ngosSection" class="section" style="display: none;">
+            <h2>List of NGOs</h2>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ngo in Model.NGOs)
+                    {
+                        <tr>
+                            <td>@ngo.Name</td>
+                            <td>@ngo.Email</td>
+                            <td>@ngo.Phone</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Admins Section -->
+        <div id="adminsSection" class="section" style="display: none;">
+            <h2>List of Admins</h2>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var admin in Model.Admins)
+                    {
+                        <tr>
+                            <td>@admin.Name</td>
+                            <td>@admin.Email</td>
+                            <td>@admin.Phone</td>
+                            <td>
+                                @if (admin.Name != "admin")
+                                {
+                                    <button class="btn btn-warning btn-sm me-2" onclick="demoteAdmin(@admin.UserID)">Demote</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(@admin.UserID)">Delete</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
