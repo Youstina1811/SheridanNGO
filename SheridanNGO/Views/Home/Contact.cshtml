@@ -1,4 +1,5 @@
 @{
+    ViewData["Title"] = "Contact Us";
 }
 
 <!DOCTYPE html>
@@ -7,79 +8,117 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/styles.css" />
-    <title>Contact Us</title>
+    <title>@ViewData["Title"]</title>
     <style>
+        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center; /* Center the container horizontally */
-            align-items: flex-start; /* Align items to the top */
-            height: 100vh; /* Full viewport height for centering */
             margin: 0;
-            padding-top: 50px; /* Add some padding to move down from the top */
+            padding: 0;
+            background-color: #f0f0f0;
         }
 
-        .contact-container {
+        .container {
+            width: 100%;
+            max-width: 960px; /* Same max-width as Sign In */
+            padding: 30px;
             background-color: white;
-            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 400px; /* Set a specific width */
-            max-width: 90%; /* Responsive max width */
-            height: auto; /* Allow height to adjust based on content */
-            overflow: auto; /* Add scroll if needed */
-            border: 2px solid black; /* Black border */
+            margin-top: 30px;
         }
 
-        .button {
-            background-color: red;
+        /* Header */
+        .header {
+            background-color: #007BFF; /* Blue background like Sign In */
             color: white;
-            border: none;
+            padding: 15px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        /* Button Styles */
+        .top-button {
+            background-color: #ff6700;
+            color: white;
+            border: 2px solid #ff6700;
             padding: 10px 20px;
+            margin: 5px;
             cursor: pointer;
             font-size: 1em;
-            margin-top: 10px;
-            border-radius: 25px; /* Curvy button */
+            display: inline-block;
+            border-radius: 25px;
         }
 
-        label {
-            background-color: #f5f5f5; /* Light gray background for labels */
-            padding: 10px; /* Padding inside the label */
-            border-radius: 15px; /* Rounded corners for labels */
-            margin-bottom: 5px; /* Space between label and input */
-            display: inline-block; /* To make the labels fit around the text */
-            width: 100%; /* Make labels take full width */
+        /* Form Container */
+        .contact-form {
+            margin-top: 20px;
         }
 
         .input-container {
-            display: flex; /* Use flexbox to align the label and input fields vertically */
-            flex-direction: column; /* Stack the label above the input field */
-            margin-bottom: 15px; /* Space between fields */
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
         }
 
-        /* Curvy input fields */
-        input[type="text"],
-        textarea {
+        label {
+            background-color: #f5f5f5;
             padding: 10px;
-            border-radius: 15px; /* Rounded corners for input fields */
-            border: 2px solid #ccc; /* Light gray border */
+            border-radius: 15px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], textarea {
+            padding: 10px;
+            border-radius: 15px;
+            border: 2px solid #ccc;
             font-size: 1em;
-            width: 100%; /* Make the input fields take full width of the container */
-            box-sizing: border-box; /* Ensure padding doesn't overflow */
+            width: 100%;
+            box-sizing: border-box;
         }
 
         textarea {
-            resize: vertical; /* Allow resizing vertically */
-            min-height: 100px; /* Set a minimum height */
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .button {
+            background-color: #007BFF; /* Blue button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 1em;
+            display: inline-block;
+            border-radius: 25px;
+            width: 100%;
+        }
+
+        .link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: blue;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
         }
 
     </style>
 </head>
 <body>
-    <div class="contact-container">
-        <h1>Contact Us</h1>
-        <form method="post" action="/Contact/Submit">
+    <div class="container">
+        <!-- Contact Us Header -->
+        <div class="header">
+            <h1>Contact Us</h1>
+        </div>
+
+        <!-- Contact Us Form -->
+        <form method="post" action="/Contact/Submit" class="contact-form" onsubmit="goBack(); return false;">
             <div class="input-container">
                 <label for="name">Your Name:</label>
                 <input type="text" name="name" id="name" required />
@@ -90,6 +129,17 @@
             </div>
             <button type="submit" class="button">Submit</button>
         </form>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; @DateTime.Now.Year Sheridan NGO. All Rights Reserved.</p>
+        </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back(); // Goes back to the previous page
+        }
+    </script>
 </body>
 </html>
