@@ -220,8 +220,8 @@ namespace SheridanNGO.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
-            _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+          //  _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         // Explore Campaign method
