@@ -17,7 +17,9 @@ public class CampaignsController : Controller
     // Example for async methods in your CampaignsController
     public async Task<IActionResult> Index()
     {
-        return View(await _context.Campaigns.ToListAsync());
+        //return View(await _context.Campaigns.ToListAsync());
+        var campaigns = _context.Campaigns.ToList();  // Get all campaigns
+        return View(campaigns);  // Pass them to the view
     }
 
     public async Task<IActionResult> Details(int? id)
@@ -36,6 +38,20 @@ public class CampaignsController : Controller
         }
 
         return View(campaign);
+    }
+
+
+     public IActionResult ViewCampaign(int id)
+    {
+        // Get the campaign from the database by ID
+        var campaign = _context.Campaigns.FirstOrDefault(c => c.CampaignID == id);
+
+        if (campaign == null)
+        {
+            return NotFound();
+        }
+
+        return View(campaign); // Return the campaign details view
     }
 
 
