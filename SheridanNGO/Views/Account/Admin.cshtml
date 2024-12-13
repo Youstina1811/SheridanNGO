@@ -189,7 +189,7 @@
 
                 function makeAdmin(userId) {
             if (confirm("Are you sure you want to promote this user to admin?")) {
-                fetch(`/Account/PromoteToAdmin/${userId}`, {
+                fetch(`/Account/MakeAdmin/${userId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
