@@ -230,13 +230,13 @@ namespace SheridanNGO.Controllers
         // Explore Campaign method
         public IActionResult ExploreCampaign(int id)
         {
-            var campaign = _context.Campaigns.Include(c => c.NGO).FirstOrDefault(c => c.CampaignID == id);
+            var campaign = _context.Campaigns.FirstOrDefault(c=>c.CampaignID == id);
             if (campaign == null)
             {
                 return NotFound();
             }
 
-            return View(); // Display the campaign details view
+            return View(campaign); // Display the campaign details view
         }
 
 

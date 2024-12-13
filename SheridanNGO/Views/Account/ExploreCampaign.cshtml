@@ -10,24 +10,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .campaign-header {
+            background: linear-gradient(90deg, #007BFF, #4CAF50);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .campaign-header h1 {
+                font-size: 36px;
+                margin-bottom: 10px;
+            }
+
+            .campaign-header p {
+                font-size: 18px;
+                margin-bottom: 0;
+            }
+
+        .campaign-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .campaign-card img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+            }
+
+        .campaign-details {
+            padding: 30px;
+        }
+
+            .campaign-details h2 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .campaign-details p {
+                font-size: 18px;
+                line-height: 1.6;
+            }
+
+        .highlight {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .btn-donate {
+            background: linear-gradient(90deg, #4CAF50, #28a745);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+            .btn-donate:hover {
+                background: #218838;
+            }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+            .btn-back:hover {
+                background-color: #5a6268;
+            }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="card">
-            @* <img src="@Model.ImageUrl" class="card-img-top" alt="Campaign Image"> *@
-            <div class="card-body">
-                <h5 class="card-title">@Model.Title</h5>
-                <p class="card-text">@Model.Description</p>
-                <p><strong>Goal Amount:</strong> @Model.GoalAmount</p>
-                <p><strong>Current Amount Raised:</strong> @Model.CurrentAmount</p>
-                <p><strong>Start Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy")</p>
-                <p><strong>End Date:</strong> @Model.EndDate.ToString("MMMM dd, yyyy")</p>
-                <p><strong>Cause Category:</strong> @Model.CauseCategory</p>
+    <div class="container">
+        <!-- Campaign Header -->
+        <div class="campaign-header">
+            <h1>@Model.Title</h1>
+            <p>@Model.Description</p>
+        </div>
 
-                <a href="@Url.Action("Donate", "Campaign", new { id = Model.CampaignID })" class="btn btn-primary">Donate Now</a>
-                <a href="@Url.Action("Dashboard", "Account")" class="btn btn-secondary">Back to Dashboard</a>
+        <!-- Campaign Card -->
+        <div class="card campaign-card">
+            <img src="@Model.imageURL" alt="Campaign Image">
+            <div class="campaign-details">
+                <h2>Campaign Details</h2>
+                <p><span class="highlight">Goal Amount:</span> $@Model.GoalAmount.ToString("N0")</p>
+                <p><span class="highlight">Current Amount Raised:</span> $@Model.CurrentAmount.ToString("N0")</p>
+                <p><span class="highlight">Start Date:</span> @Model.StartDate.ToString("MMMM dd, yyyy")</p>
+                <p><span class="highlight">End Date:</span> @Model.EndDate.ToString("MMMM dd, yyyy")</p>
+                <p><span class="highlight">Cause Category:</span> @Model.CauseCategory</p>
+
+                <!-- Action Buttons -->
+                <div class="text-center">
+                    <a href="@Url.Action("CreateCharge", "Payment", new { id = Model.CampaignID })" class="btn btn-donate">Donate Now</a>
+                    <a href="@Url.Action("Dashboard", "Account")" class="btn btn-back">Back to Dashboard</a>
+                </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            &copy; @DateTime.Now.Year Sheridan NGO. All rights reserved.
+        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
