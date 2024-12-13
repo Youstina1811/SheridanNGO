@@ -187,6 +187,29 @@
             }
         }
 
+                function makeAdmin(userId) {
+            if (confirm("Are you sure you want to promote this user to admin?")) {
+                fetch(`/Account/PromoteToAdmin/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("User promoted to admin successfully.");
+                        location.reload(); // Reload to reflect changes
+                    } else {
+                        alert("Failed to promote user to admin.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while promoting the user to admin.");
+                });
+            }
+        }
+
 
     </script>
 
