@@ -21,6 +21,8 @@ namespace SheridanNGO.Models
 
         public string CauseCategory { get; set; } // Cause category (e.g., 'education', 'healthcare', etc.)
 
+        public string imageURL { get; set; }
+
         // Navigation property
         public NGO NGO { get; set; }
 
