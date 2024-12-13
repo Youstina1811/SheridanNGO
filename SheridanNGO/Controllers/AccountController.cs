@@ -88,6 +88,9 @@ namespace SheridanNGO.Controllers
             ViewBag.User = user;
             return View(campaigns);
         }
+
+       
+
         private async Task SignInUser(User user)
         {
             var claims = new List<Claim>
@@ -220,8 +223,8 @@ namespace SheridanNGO.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
-            _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+          //  _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         // Explore Campaign method
@@ -233,7 +236,7 @@ namespace SheridanNGO.Controllers
                 return NotFound();
             }
 
-            return View(campaign); // Display the campaign details view
+            return View(); // Display the campaign details view
         }
 
 
@@ -273,12 +276,7 @@ namespace SheridanNGO.Controllers
             if (user != null)
             {
                 // Check if the user is the hardcoded admin
-                if (user.Email == "admin@sheridan.com" && user.Password == "23423423")
-                {
-                    // Redirect to Admin dashboard
-                    await SignInUser(user);
-                    return RedirectToAction("Admin", "Account");
-                }
+                
 
                 // Verify hashed password
                 var hasher = new PasswordHasher<User>();
@@ -286,6 +284,12 @@ namespace SheridanNGO.Controllers
 
                 if (result == Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success)
                 {
+                    if (user.Email == "admin@sheridan.com")
+                    {
+                        // Redirect to Admin dashboard
+                        await SignInUser(user);
+                        return RedirectToAction("Admin", "Account");
+                    }
                     // Sign in the user
                     await SignInUser(user);
 
@@ -300,81 +304,6 @@ namespace SheridanNGO.Controllers
             return View(model);
         }
 
-
-        //test sign in page backend.
-
-        //        [HttpPost]
-        /*public async Task<IActionResult> Login(string username, string password, bool rememberMe = false)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByNameAsync(username);
-                if (user != null)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user, password, rememberMe, lockoutOnFailure: false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "User not found.");
-                }
-            }
-            return View();
-        }*/
-
-
-
-
-        /*[HttpPost]
-        public async Task<IActionResult> Register(User model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new User { Name = model.Name, Email = model.Email,Password = model.Password, Phone="123123",Address = "blah blah" };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-            return View(model);
-        }
-*/
-
-        /*
-[HttpPost]
-public async Task<IActionResult> Login(LoginViewModel model)
-{
-   if (ModelState.IsValid)
-   {
-       // Use SignInManager to authenticate the user
-       var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
-
-       if (result.Succeeded)
-       {
-           // Redirect to the main page after successful login
-           return RedirectToAction("Index", "Home");
-       }
-       else
-       {
-           // If the login failed, add an error to ModelState
-           ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-       }
-   }
-
-   // If we reach this point, it means there was an error and the user will be returned to the login page
-   return View(model);
-}
-      */
 
         [HttpPost]
         public async Task<IActionResult> Register(User model)

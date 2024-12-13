@@ -23,10 +23,10 @@
             background-color: #343a40;
         }
 
-            .navbar-custom a {
-                color: white !important;
-                font-weight: bold;
-            }
+        .navbar-custom a {
+            color: white !important;
+            font-weight: bold;
+        }
 
         .card {
             margin-bottom: 20px;
@@ -37,10 +37,10 @@
             transition: transform 0.2s;
         }
 
-            .campaign-card:hover {
-                transform: scale(1.05);
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
+        .campaign-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
         .action-btn {
             background-color: #007BFF;
@@ -50,9 +50,9 @@
             cursor: pointer;
         }
 
-            .action-btn:hover {
-                background-color: #0056b3;
-            }
+        .action-btn:hover {
+            background-color: #0056b3;
+        }
 
         .container {
             margin-top: 30px;
@@ -75,9 +75,9 @@
             text-decoration: none;
         }
 
-            .btn-link:hover {
-                text-decoration: underline;
-            }
+        .btn-link:hover {
+            text-decoration: underline;
+        }
 
         .logout-btn {
             background-color: #dc3545;
@@ -87,9 +87,38 @@
             cursor: pointer;
         }
 
-            .logout-btn:hover {
-                background-color: #c82333;
-            }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Custom style for clickable area with image */
+        .clickable-area {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .clickable-area:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .clickable-area img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            object-fit: cover;
+        }
+
+        .clickable-area .content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .clickable-area .content p {
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +127,8 @@
             <h1>Welcome, @ViewBag.User.Name!</h1>
             <p>Here's what's happening at Sheridan NGO.</p>
         </div>
+
+
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-custom mb-4">
@@ -132,12 +163,62 @@
                             <h5 class="card-title">@campaign.Title</h5>
                             <p class="card-text">@campaign.Description</p>
                             <p><strong>Goal: </strong>@campaign.GoalAmount</p>
-                            <a href="@Url.Action("ExploreCampaign", "Account", new { id = campaign.CampaignID })" class="btn btn-link">Explore</a>
                         </div>
                     </div>
                 </div>
             }
         </div>
+
+        <!-- New Title Section -->
+        <div class="text-center my-4">
+            <h2>What Can Help</h2>
+        </div>
+
+        <!-- Clickable Area with Image -->
+        <div class="clickable-area" onclick="window.location.href='@Url.Action("ExploreCampaign", "Account" ,new { id = 1 })'">
+
+            <img src="~/images/campaign1.jpg" alt="Help Image" />
+            <div class="content">
+                <h4>Housing Instability</h4>
+                <p>Living without stable shelter severely affects individuals' ability to maintain good health, seek employment, and access education, further entrenching them in a cycle of need.</p>
+            </div>
+        </div>
+
+
+
+        <!-- Clickable Area with Image -->
+        <div class="clickable-area" onclick="window.location.href='@Url.Action("SomeAction", "Controller",new { id = 2 })'">
+            <img src="~/images/campaign2.jpg" alt="Help Image" />
+            <div class="content">
+                <h4>Mental Health Issues</h4>
+                <p>1 in 4 people will be affected by mental or neurological disorders (WHO)</p>
+            </div>
+        </div>
+
+
+
+        <!-- Clickable Area with Image -->
+        <div class="clickable-area" onclick="window.location.href='@Url.Action("SomeAction", "Controller",new { id = 3 })'">
+            <img src="~/images/campaign3.jpg" alt="Help Image" />
+            <div class="content">
+                <h4>Children’s Feeding</h4>
+                <p>The days, months, or years a child spends without proper nutrition create problems that last a lifetime. But when you feed children through Convoy of Hope, you become part of the solution.</p>
+            </div>
+        </div>
+
+
+
+        <!-- Clickable Area with Image -->
+        <div class="clickable-area" onclick="window.location.href='@Url.Action("SomeAction", "Controller",new { id = 4 })'">
+            <img src="~/images/campaign4.jpg" alt="Help Image" />
+            <div class="content">
+                <h4>Community Events</h4>
+                <p>Civic organizations, churches, businesses, and government agencies come together at Convoy of Hope’s Community Events to bring help and hope to families in need. Together, they offer free services to each and every Guest of Honor.</p>
+            </div>
+        </div>
+
+
+
 
         <!-- Footer -->
         <footer class="text-center mt-5">
