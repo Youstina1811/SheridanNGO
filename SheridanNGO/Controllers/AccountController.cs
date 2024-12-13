@@ -88,6 +88,9 @@ namespace SheridanNGO.Controllers
             ViewBag.User = user;
             return View(campaigns);
         }
+
+       
+
         private async Task SignInUser(User user)
         {
             var claims = new List<Claim>
@@ -233,7 +236,7 @@ namespace SheridanNGO.Controllers
                 return NotFound();
             }
 
-            return View(campaign); // Display the campaign details view
+            return View(); // Display the campaign details view
         }
 
 
