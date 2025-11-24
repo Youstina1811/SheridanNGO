@@ -1,4 +1,7 @@
-SheridanNGO Web Platform – 2024/2025
+# SheridanNGO Web Platform Project - 2024
+
+# A Donation & Volunteer Management Platform for Non-Profit Organizations \#4
+
 Dependancies:
 Microsoft.AspNet.Identity.Core (2.2.4)
 Microsoft.AspNet.Identity.EntityFramework (2.2.4)
