@@ -1,4 +1,5 @@
-﻿Dependancies:
+SheridanNGO Web Platform – 2024/2025
+Dependancies:
 Microsoft.AspNet.Identity.Core (2.2.4)
 Microsoft.AspNet.Identity.EntityFramework (2.2.4)
 Microsoft.AspNet.Identity.Owin (2.2.4)
