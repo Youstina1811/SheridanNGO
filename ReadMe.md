@@ -4,7 +4,9 @@
 
 ### Sheridan College Group Project
 
-![SheridanNGO Logo](Logo/NGO_Logo.png)
+<p>
+  <img src="SheridanNGO/wwwroot/images/logo.jpg" alt="SheridanNGO Logo" width="350">
+</p>
 
 ## Overview
 
